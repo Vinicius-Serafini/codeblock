@@ -16,7 +16,6 @@ function App() {
         </section>
         <section className='flex-1 bg-blue-400 p-4 rounded-lg'>
           <p>
-            sexo
           </p>
         </section>
       </main>
