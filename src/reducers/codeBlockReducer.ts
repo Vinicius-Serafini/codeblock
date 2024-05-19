@@ -2,13 +2,13 @@ import { CodeBlockNode } from "../types";
 
 type CodeBlockReducerKind = "INSERT" | "UPDATE" | "DELETE" | "MOVE";
 
-type CodeBlockReducerAction = {
+export type CodeBlockReducerAction = {
   type: CodeBlockReducerKind;
   payload: CodeBlockNode;
   targetId?: string
 };
 
-type CodeBlockReducerState = CodeBlockNode[];
+export type CodeBlockReducerState = CodeBlockNode[];
 
 const insertAt = (state: CodeBlockReducerState, newNode: CodeBlockNode, targetId: string): CodeBlockReducerState => {
   return state.reduce((acc, node): CodeBlockReducerState => {

@@ -1,10 +1,13 @@
+import { useReducer } from 'react';
 import './App.css';
 import { CodeBlockMenu } from './components/CodeBlockMenu';
 import { CodeBlockRenderer } from './components/CodeBlockRenderer';
+import { CodeBlockProvider } from './context/CodeBlockContext';
 
 function App() {
+
   return (
-    <>
+    <CodeBlockProvider>
       <main className='w-screen min-h-screen max-h-screen flex p-6 gap-3'>
         <section className='flex-[1.2] flex gap-3 items-stretch'>
           <CodeBlockMenu className="flex-1" />
@@ -19,7 +22,7 @@ function App() {
           </p>
         </section>
       </main>
-    </>
+    </CodeBlockProvider>
   )
 }
 

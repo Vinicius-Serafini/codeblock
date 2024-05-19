@@ -3,12 +3,15 @@ import { CodeBlockNode } from "../types";
 import { CodeBlockReducer } from "../reducers/codeBlockReducer";
 import { generateRandomString, isMouseOverElement } from "../utils";
 import { CodeBlockList } from "./CodeBlockList";
+import { useCodeBlockState } from "../hooks/useCodeBlockState";
+import { useCodeBlockDispatcher } from "../hooks/useCodeBlockDispatcher";
 
 export const CodeBlockRenderer = (props: JSX.IntrinsicElements['div']) => {
   const [currentDropTargetId, setCurrentDropTargetId] = useState<string | null>(null);
   const [currentDragTargetId, setCurrentDragTargetId] = useState<string | null>(null);
 
-  const [nodes, dispatch] = useReducer(CodeBlockReducer, []);
+  const codeBlocks = useCodeBlockState();
+  const codeBlocksDispatch = useCodeBlockDispatcher()
 
   const onDragStart = (e: React.DragEvent<HTMLDivElement>, node: CodeBlockNode) => {
     e.stopPropagation();
@@ -49,7 +52,7 @@ export const CodeBlockRenderer = (props: JSX.IntrinsicElements['div']) => {
 
     const payload: CodeBlockNode = JSON.parse(e.dataTransfer.getData('application/json'));
 
-    dispatch({
+    codeBlocksDispatch({
       type: 'MOVE',
       targetId: node.id,
       payload: {
@@ -115,13 +118,13 @@ export const CodeBlockRenderer = (props: JSX.IntrinsicElements['div']) => {
     const payload = JSON.parse(e.dataTransfer.getData('application/json'));
 
     if (payload.id) {
-      return dispatch({
+      return codeBlocksDispatch({
         type: 'MOVE',
         payload
       });
     }
 
-    dispatch({
+    codeBlocksDispatch({
       type: 'INSERT',
       payload: {
         ...payload,
@@ -139,7 +142,7 @@ export const CodeBlockRenderer = (props: JSX.IntrinsicElements['div']) => {
       onDrop={onDropInitial}
       onDragOver={e => e.preventDefault()}>
       <CodeBlockList
-        nodes={nodes}
+        nodes={codeBlocks}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
         onDrop={onDrop}
