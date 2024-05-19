@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+:root {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  font-size: 1rem;
+  min-height: 100vh;
+
+  scrollbar-width: thin;
+}
+
+/* Scrollbar container */
+::-webkit-scrollbar {
+  width: .5rem; /* Width of the scrollbar */
+}
+
+/* Scrollbar track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+/* Scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(96 165 250 / var(--tw-bg-opacity)); /* Color of the scrollbar handle */
+  border-radius: 1rem;
+  transition: background .2s ease-out;
+}
+
+/* Scrollbar handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(147 197 253 / var(--tw-bg-opacity));
+}
