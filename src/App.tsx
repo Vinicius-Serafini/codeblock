@@ -1,7 +1,6 @@
-import { useReducer } from 'react';
 import './App.css';
 import { CodeBlockMenu } from './components/CodeBlockMenu';
-import { CodeBlockRenderer } from './components/CodeBlockRenderer';
+import { CodeBlockDOMRenderer } from './components/CodeBlockDOMRenderer';
 import { CodeBlockProvider } from './context/CodeBlockContext';
 
 function App() {
@@ -12,7 +11,7 @@ function App() {
         <section className='flex-[1.2] flex gap-3 items-stretch'>
           <CodeBlockMenu className="flex-1" />
           <div className='flex-[2] p-4 flex flex-col gap-1 bg-gray-300 rounded-lg overflow-auto max-h-screen'>
-            <CodeBlockRenderer
+            <CodeBlockDOMRenderer
               className='flex-1'
             />
           </div>

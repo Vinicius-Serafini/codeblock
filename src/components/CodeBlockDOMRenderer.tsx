@@ -6,7 +6,7 @@ import { CodeBlockList } from "./CodeBlockList";
 import { useCodeBlockState } from "../hooks/useCodeBlockState";
 import { useCodeBlockDispatcher } from "../hooks/useCodeBlockDispatcher";
 
-export const CodeBlockRenderer = (props: JSX.IntrinsicElements['div']) => {
+export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
   const [currentDropTargetId, setCurrentDropTargetId] = useState<string | null>(null);
   const [currentDragTargetId, setCurrentDragTargetId] = useState<string | null>(null);
 
