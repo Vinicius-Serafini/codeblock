@@ -1,9 +1,9 @@
 import { CodeBlockNode } from "../types";
 
-type CodeBlockReducerKind = "INSERT" | "UPDATE" | "DELETE" | "MOVE";
+type CodeBlockReducerType = "INSERT" | "UPDATE" | "DELETE" | "MOVE";
 
 export type CodeBlockReducerAction = {
-  type: CodeBlockReducerKind;
+  type: CodeBlockReducerType;
   payload: CodeBlockNode;
   targetId?: string
 };
