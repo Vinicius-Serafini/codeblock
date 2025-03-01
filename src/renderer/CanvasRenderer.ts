@@ -14,6 +14,16 @@ export class CanvasRenderer {
     this.pen = new Pen([this.canvas.width / 2, this.canvas.height / 2], this.ctx);
   }
 
+  setSize(width: number, height: number) {
+    this.canvas.height = height;
+    this.canvas.width = width;
+  }
+
+  clear() {
+    this.ctx.fillStyle = 'white';
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
   get ctx() {
     return this.canvas.getContext('2d') as CanvasRenderingContext2D;
   }
@@ -76,10 +86,6 @@ export class CanvasRenderer {
         this.pen.penDown();
       }
     }
-  }
-
-  clear() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 }
 
