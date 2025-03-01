@@ -134,6 +134,12 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
   }
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>, node: CodeBlockNode) => {
+    let value = !Number.isNaN(e.target.valueAsNumber) ? e.target.valueAsNumber : null;
+
+    if (typeof value === 'number' && value < 0) {
+      value = 0;
+    }
+
     codeBlocksDispatch({
       type: 'UPDATE',
       payload: {

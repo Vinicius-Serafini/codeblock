@@ -58,6 +58,7 @@ export const CodeBlock = ({
             <input
               className='rounded p-1 flex-1 max-w-40 bg-white disabled:cursor-not-allowed'
               type="number"
+              min="0"
               value={props.node.value ? props.node.value as string : ''}
               onInput={onInput}
               disabled={props.inputDisbled}
