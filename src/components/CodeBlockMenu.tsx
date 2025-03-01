@@ -1,31 +1,15 @@
 import { CodeBlockNode } from "../types";
 import { CodeBlock } from "./CodeBlock";
+import * as BLOCKS from "@/constants/blocks";
 
 const AVAILABLE_MENU_OPTIONS: CodeBlockNode[] = [
-  {
-    action: 'repeat',
-    title: 'Repeat',
-    type: 'ACTION',
-    value: 3,
-    hasInput: true,
-    children: [],
-  },
-  {
-    title: 'Left',
-    action: 'left',
-    unit: 'degrees',
-    type: 'INPUT',
-    value: 3,
-    hasInput: true,
-  },
-  {
-    title: 'Right',
-    action: 'right',
-    unit: 'degrees',
-    type: 'INPUT',
-    value: 3,
-    hasInput: true
-  }
+  BLOCKS.REPEAT_BLOCK,
+  BLOCKS.LEFT_BLOCK,
+  BLOCKS.RIGHT_BLOCK,
+  BLOCKS.FORWARD_BLOCK,
+  BLOCKS.BACKWARD_BLOCK,
+  BLOCKS.PEN_UP_BLOCK,
+  BLOCKS.PEN_DOWN_BLOCK,
 ];
 
 type CodeBlockMenuProps = JSX.IntrinsicElements['aside'];

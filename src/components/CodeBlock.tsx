@@ -4,7 +4,7 @@ import { CodeBlockNode } from "../types";
 export type CodeBlockProps = {
   node: CodeBlockNode
   onDragEnd?: (e: React.DragEvent<HTMLDivElement>, node: CodeBlockNode) => void
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>, node: CodeBlockNode) => void
+  onInput?: (e: React.ChangeEvent<HTMLInputElement>, node: CodeBlockNode) => void
   hasDrop?: boolean
   onDragStart?: (e: React.DragEvent<HTMLDivElement>, node: CodeBlockNode) => void
   onDragOver?: (e: React.DragEvent<HTMLDivElement>, node: CodeBlockNode) => void
@@ -34,6 +34,10 @@ export const CodeBlock = ({
     });
   }
 
+  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.onInput?.(e, { ...props.node, value: e.target.value })
+  }
+
   return (
     <div
       id={props.node.id}
@@ -54,10 +58,8 @@ export const CodeBlock = ({
             <input
               className='rounded p-1 flex-1 max-w-40 bg-white disabled:cursor-not-allowed'
               type="number"
-              name=""
-              id=""
-              value="3"
-              onChange={() => { }}
+              value={props.node.value ? props.node.value as string : ''}
+              onInput={onInput}
               disabled={props.inputDisbled}
             />
             {props.node.unit && (

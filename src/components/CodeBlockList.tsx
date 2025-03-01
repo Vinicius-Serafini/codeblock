@@ -20,6 +20,7 @@ export const CodeBlockList = (props: CodeBlockListProps) => {
         onDragLeave={props.onDragLeave}
         onDrop={props.onDrop}
         onDragEnd={props.onDragEnd}
+        onInput={props.onInput}
         isBeingDraggedOver={props.currentDropTargetId === node.id && node.id !== props.currentDragTargetId}>
         {node.children ? <CodeBlockList {...props} nodes={node.children} /> : null}
       </CodeBlock>

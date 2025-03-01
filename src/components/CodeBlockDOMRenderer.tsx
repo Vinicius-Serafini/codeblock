@@ -1,6 +1,5 @@
-import React, { useId, useReducer, useState } from "react";
+import React, { useId, useState } from "react";
 import { CodeBlockNode } from "../types";
-import { CodeBlockReducer } from "../reducers/codeBlockReducer";
 import { generateRandomString, isMouseOverElement } from "../utils";
 import { CodeBlockList } from "./CodeBlockList";
 import { useCodeBlockState } from "../hooks/useCodeBlockState";
@@ -57,6 +56,7 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
       targetId: node.id,
       payload: {
         ...payload,
+        id: payload.id || generateRandomString(),
       }
     });
   }
@@ -133,6 +133,16 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
     });
   }
 
+  const onInput = (e: React.ChangeEvent<HTMLInputElement>, node: CodeBlockNode) => {
+    codeBlocksDispatch({
+      type: 'UPDATE',
+      payload: {
+        ...node,
+        value: !Number.isNaN(e.target.valueAsNumber) ? e.target.valueAsNumber : null
+      },
+      targetId: node.id
+    });
+  }
 
   return (
     <div
@@ -151,6 +161,7 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
         onDragLeave={onDragLeave}
         currentDropTargetId={currentDropTargetId}
         currentDragTargetId={currentDragTargetId}
+        onInput={onInput}
       />
     </div>
   )
