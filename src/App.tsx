@@ -2,6 +2,7 @@ import './App.css';
 import { CodeBlockMenu } from './components/CodeBlockMenu';
 import { CodeBlockDOMRenderer } from './components/CodeBlockDOMRenderer';
 import { CodeBlockProvider } from './context/CodeBlockContext';
+import { CodeBlockCanvas } from './components/CodeBlockCanvas';
 
 function App() {
 
@@ -16,9 +17,8 @@ function App() {
             />
           </div>
         </section>
-        <section className='flex-1 bg-blue-400 p-4 rounded-lg'>
-          <p>
-          </p>
+        <section className='flex-1 rounded-lg overflow-hidden bg-gray-300 p-4'>
+          <CodeBlockCanvas />
         </section>
       </main>
     </CodeBlockProvider>
