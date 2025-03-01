@@ -21,30 +21,15 @@ export const CodeBlockCanvas = (props: HTMLProps<HTMLCanvasElement>) => {
 
   useEffect(() => {
     if (canvasRef.current) {
-      const canvas = buildCanvasRenderer(canvasRef.current);
-      canvas.clear();
-
-      setCanvasRenderer(canvas);
+      setCanvasRenderer(buildCanvasRenderer(canvasRef.current));
     }
-  }, [canvasRef]);
+  }, [canvasRef, codeBlocksState, windowSize]);
 
   useEffect(() => {
     if (canvasRenderer) {
       canvasRenderer.draw(codeBlocksState);
-
-      return () => canvasRenderer.clear();
     }
-  }, [codeBlocksState]);
-
-  useEffect(() => {
-    if (canvasRef.current) {
-      const { width, height } = canvasRef.current.getBoundingClientRect();
-
-      canvasRenderer?.setSize(width, height);
-      canvasRenderer?.clear();
-      canvasRenderer?.draw(codeBlocksState);
-    }
-  }, [windowSize]);
+  }, [canvasRenderer]);
 
   return (
     <canvas

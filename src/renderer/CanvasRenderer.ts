@@ -14,11 +14,6 @@ export class CanvasRenderer {
     this.pen = new Pen([this.canvas.width / 2, this.canvas.height / 2], this.ctx);
   }
 
-  setSize(width: number, height: number) {
-    this.canvas.height = height;
-    this.canvas.width = width;
-  }
-
   clear() {
     this.ctx.fillStyle = 'white';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -128,5 +123,4 @@ class Pen {
       this.ctx.stroke();
     }
   }
-
 }
