@@ -5,7 +5,7 @@ export const REPEAT_BLOCK: CodeBlockNode = {
   title: 'Repeat',
   type: 'ACTION',
   hasInput: true,
-  value: 3,
+  value: 2,
   children: [],
 };
 
@@ -32,7 +32,7 @@ export const FORWARD_BLOCK: CodeBlockNode = {
   action: 'forward',
   unit: 'steps',
   type: 'INPUT',
-  value: 3,
+  value: 10,
   hasInput: true
 }
 
@@ -41,7 +41,7 @@ export const BACKWARD_BLOCK: CodeBlockNode = {
   action: 'backward',
   unit: 'steps',
   type: 'INPUT',
-  value: 3,
+  value: 10,
   hasInput: true
 }
 
