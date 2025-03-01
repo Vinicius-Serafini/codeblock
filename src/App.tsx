@@ -17,8 +17,10 @@ function App() {
             />
           </div>
         </section>
-        <section className='flex-1 rounded-lg overflow-hidden bg-gray-300 p-4'>
-          <CodeBlockCanvas />
+        <section className='flex-1 rounded-lg overflow-hidden bg-gray-300 p-2'>
+          <div className='h-full w-full rounded-lg overflow-hidden'>
+            <CodeBlockCanvas />
+          </div>
         </section>
       </main>
     </CodeBlockProvider>

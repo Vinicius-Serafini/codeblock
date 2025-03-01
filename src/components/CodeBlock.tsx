@@ -41,7 +41,7 @@ export const CodeBlock = ({
   return (
     <div
       id={props.node.id}
-      className='bg-blue-400 rounded-lg flex flex-col gap-3 pl-3 py-3 cursor-grab'
+      className='bg-blue-400 rounded-lg flex flex-col gap-3 pl-2 py-2 cursor-grab'
       draggable
       onDragStart={dragEventDecorator(props.onDragStart)}
       onDragEnd={dragEventDecorator(props.onDragEnd)}
@@ -49,7 +49,7 @@ export const CodeBlock = ({
       onDragOver={dragEventDecorator(props.onDragOver)}
       onDragEnter={dragEventDecorator(props.onDragEnter)}
       onDragLeave={dragEventDecorator(props.onDragLeave)}>
-      <div className="flex gap-4 items-center pr-3 flex-wrap">
+      <div className="flex gap-4 items-center pr-2 flex-wrap">
         <p className="font-bold capitalize">
           {props.node.title}
         </p>
