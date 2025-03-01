@@ -9,6 +9,12 @@ export const CodeBlockCanvas = (props: HTMLProps<HTMLCanvasElement>) => {
 
   useEffect(() => {
     if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      const { width, height } = canvas.getBoundingClientRect();
+
+      canvas.width = width;
+      canvas.height = height;
+
       const canvasRenderer = new CanvasRenderer(canvasRef.current);
 
       canvasRenderer.draw(codeBlocksState);
