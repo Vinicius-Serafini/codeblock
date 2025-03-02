@@ -44,3 +44,27 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(147 197 253 / var(--tw-bg-opacity));
 }
+
+@layer utilities {
+  .drag-over-placeholder--after {
+    @apply
+    after:h-9 
+    after:w-full 
+    after:bg-blue-300 
+    after:border-2 
+    after:border-blue-400 
+    after:rounded-lg
+    after:block;
+  }
+  
+  .drag-over-placeholder--before {
+    @apply
+    before:h-9 
+    before:w-full 
+    before:bg-blue-300 
+    before:border-2 
+    before:border-blue-400 
+    before:rounded-lg
+    before:block;
+  }
+}

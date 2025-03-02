@@ -1,6 +1,6 @@
 import { CodeBlockNode } from "../types";
 
-type CodeBlockReducerType = "INSERT" | "UPDATE" | "DELETE" | "MOVE";
+type CodeBlockReducerType = "INSERT" | "UPDATE" | "DELETE" | "INSERT_AFTER" | "INSERT_BEFORE";
 
 export type CodeBlockReducerAction = {
   type: CodeBlockReducerType;
@@ -20,6 +20,38 @@ const insertAt = (state: CodeBlockReducerState, newNode: CodeBlockNode, targetId
 
     if (currentNode.id !== targetId && currentNode.children) {
       currentNode.children = insertAt(currentNode.children, newNode, targetId);
+    }
+
+    return [...acc, currentNode];
+  }, [] as CodeBlockReducerState);
+}
+
+const insertAfter = (state: CodeBlockReducerState, newNode: CodeBlockNode, targetId: string): CodeBlockReducerState => {
+  return state.reduce((acc, node,): CodeBlockReducerState => {
+    const currentNode = { ...node };
+
+    if (currentNode.id === targetId) {
+      return [...acc, currentNode, newNode];
+    }
+
+    if (currentNode.children?.find((child: CodeBlockNode) => child.id === targetId)) {
+      currentNode.children = insertAfter(currentNode.children, newNode, targetId);
+    }
+
+    return [...acc, currentNode];
+  }, [] as CodeBlockReducerState);
+}
+
+const insertBefore = (state: CodeBlockReducerState, newNode: CodeBlockNode, targetId: string): CodeBlockReducerState => {
+  return state.reduce((acc, node): CodeBlockReducerState => {
+    const currentNode = { ...node };
+
+    if (currentNode.id === targetId) {
+      return [...acc, newNode, currentNode];
+    }
+
+    if (currentNode.children?.find((child: CodeBlockNode) => child.id === targetId)) {
+      currentNode.children = insertBefore(currentNode.children, newNode, targetId);
     }
 
     return [...acc, currentNode];
@@ -64,6 +96,20 @@ export const CodeBlockReducer = (state: CodeBlockReducerState, action: CodeBlock
 
       return insertAt(state, action.payload, action.targetId);
 
+    case "INSERT_AFTER":
+      if (!action.targetId) {
+        return [...state, action.payload];
+      }
+
+      return insertAfter(state, action.payload, action.targetId);
+
+    case "INSERT_BEFORE":
+      if (!action.targetId) {
+        return [action.payload, ...state];
+      }
+
+      return insertBefore(state, action.payload, action.targetId);
+
     case "UPDATE":
       if (!action.targetId) {
         return state;
@@ -77,16 +123,6 @@ export const CodeBlockReducer = (state: CodeBlockReducerState, action: CodeBlock
       }
 
       return removeAt(state, action.targetId);
-
-    case "MOVE":
-      if (!action.targetId) {
-        const newState = removeAt(state, action.payload.id as string);
-
-        return [...newState, action.payload];
-      }
-
-      const newState = removeAt(state, action.payload.id as string);
-      return insertAt(newState, action.payload, action.targetId);
 
     default:
       return state;
