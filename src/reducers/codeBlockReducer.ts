@@ -1,12 +1,19 @@
 import { CodeBlockNode } from "../types";
 
-type CodeBlockReducerType = "INSERT" | "UPDATE" | "DELETE" | "INSERT_AFTER" | "INSERT_BEFORE";
+type CodeBlockReducerType = "INSERT" | "UPDATE" | "DELETE" | "INSERT_AFTER" | "INSERT_BEFORE" | "DELETE_ALL";
 
-export type CodeBlockReducerAction = {
+type CodeBlockReducerActionBody = {
   type: CodeBlockReducerType;
   payload: CodeBlockNode;
   targetId?: string
 };
+
+export type CodeBlockInsertAction = Omit<CodeBlockReducerActionBody, "type"> & { type: "INSERT" | "INSERT_AFTER" | "INSERT_BEFORE" };
+export type CodeBlockUpdateAction = Required<Omit<CodeBlockReducerActionBody, "type">> & { type: "UPDATE" };
+export type CodeBlockDeleteAction = Required<Omit<CodeBlockReducerActionBody, "type">> & { type: "DELETE" };
+export type CodeBlockDeleteAllAction = { type: "DELETE_ALL" };
+
+export type CodeBlockReducerAction = CodeBlockInsertAction | CodeBlockUpdateAction | CodeBlockDeleteAction | CodeBlockDeleteAllAction;
 
 export type CodeBlockReducerState = CodeBlockNode[];
 
@@ -111,18 +118,13 @@ export const CodeBlockReducer = (state: CodeBlockReducerState, action: CodeBlock
       return insertBefore(state, action.payload, action.targetId);
 
     case "UPDATE":
-      if (!action.targetId) {
-        return state;
-      }
-
       return updateAt(state, action.payload, action.targetId);
 
     case "DELETE":
-      if (!action.targetId) {
-        return state;
-      }
-
       return removeAt(state, action.targetId);
+
+    case "DELETE_ALL":
+      return [];
 
     default:
       return state;

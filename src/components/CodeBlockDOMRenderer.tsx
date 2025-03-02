@@ -13,6 +13,7 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
   const codeBlocks = useCodeBlockState();
   const codeBlocksDispatch = useCodeBlockDispatcher();
 
+
   useEffect(() => {
     if (!currentDropTargetId) {
       setCurrentDragOverTargetPosition(null);
@@ -62,11 +63,13 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
 
     const payload: CodeBlockNode = JSON.parse(e.dataTransfer.getData('application/json'));
 
-    codeBlocksDispatch({
-      type: 'DELETE',
-      targetId: payload.id,
-      payload
-    });
+    if (payload.id) {
+      codeBlocksDispatch({
+        type: 'DELETE',
+        targetId: payload.id,
+        payload
+      });
+    }
 
     if (currentDragOverTargetPosition === 'before') {
       codeBlocksDispatch({
@@ -238,6 +241,10 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
   }
 
   const onInput = (e: React.ChangeEvent<HTMLInputElement>, node: CodeBlockNode) => {
+    if (!node.id) {
+      return;
+    }
+
     let value = !Number.isNaN(e.target.valueAsNumber) ? e.target.valueAsNumber : null;
 
     if (typeof value === 'number' && value < 0) {
@@ -255,6 +262,10 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
   }
 
   const onDelete = (node: CodeBlockNode) => {
+    if (!node.id) {
+      return;
+    }
+
     codeBlocksDispatch({
       type: 'DELETE',
       payload: node,
@@ -282,6 +293,10 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
     }
   }
 
+  const deleteAll = () => codeBlocksDispatch({
+    type: 'DELETE_ALL'
+  });
+
   return (
     <div
       id={id}
@@ -308,7 +323,9 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
         />
       </div>
       <div className="w-full p-4 shadow-[#00000030_0px_-1px_8px_0px]">
-        <button className="p-2 border-2 border-black font-bold rounded ml-auto block">
+        <button
+          onClick={deleteAll}
+          className="p-2 border-2 border-black font-bold rounded ml-auto block">
           Limpar
         </button>
       </div>
