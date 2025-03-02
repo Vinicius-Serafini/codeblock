@@ -326,7 +326,7 @@ export const CodeBlockDOMRenderer = (props: JSX.IntrinsicElements['div']) => {
         <button
           onClick={deleteAll}
           className="p-2 border-2 border-black font-bold rounded ml-auto block">
-          Limpar
+          Clear
         </button>
       </div>
     </div>
